@@ -13,3 +13,23 @@ Hoe.new('earworm', Earworm::VERSION) do |p|
 end
 
 # vim: syntax=Ruby
+
+begin
+  require 'jeweler'
+  Jeweler::Tasks.new do |s|
+    s.name = "earworm"
+    s.email = "aaronp@rubyforge.org"
+    s.homepage = "http://github.com/tenderlove/earworm"
+    s.authors = ["Aaron Patterson"]
+    s.summary = "TODO"
+    s.description = "TODO"
+    s.rubyforge_project = 'earworm'
+    s.add_dependency('icanhasaudio','>=0.1.1')
+    # Jeweler defaults
+    s.has_rdoc = false
+  end
+rescue LoadError
+  puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
+end
+
+
