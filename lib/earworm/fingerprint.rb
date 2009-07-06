@@ -18,8 +18,28 @@ module Earworm
         'brt'  => 0,
         'fmt'  => 'wav',
       }
+      
       if @thing.is_a?(IO)
         info = wav_info_for(@thing)
+      elsif @thing.is_a?(Tempfile)
+        tmpfile = case @thing.content_type
+                  when /mpeg$/
+                    @hash['fmt'] = 'mp3'
+                    begin
+                      require 'id3lib'
+                      @hash = @hash.merge(id3_info_for(@thing.path))
+                    rescue LoadError
+                    end
+                    decode_mp3(@thing.path)
+                  when /ogg$/
+                    @hash['fmt'] = 'ogg'
+                    decode_ogg(@thing.path)
+                  else # Assume its a wav file
+                    @thing.path
+                  end
+        File.open(tmpfile, 'rb') { |f|
+          info = wav_info_for(f)
+        }
       else
         tmpfile = case @thing
                   when /mp3$/

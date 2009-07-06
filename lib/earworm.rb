@@ -8,6 +8,7 @@ require 'earworm/client'
 require 'rexml/document'
 require 'rexml/parsers/pullparser'
 require 'net/http'
+require 'tempfile'
 
 module Earworm
   VERSION = '0.0.2'
